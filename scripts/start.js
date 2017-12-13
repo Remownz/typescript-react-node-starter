@@ -64,22 +64,25 @@ const compilerServer = webpack(configServer, (err, stats) => {
   if (err || stats.hasErrors()) {
     // Handle errors here
     console.log(err);
-  }
-  // Done processing
-  nodemon({
-    script: paths.serverPath,
-    ext: 'js json'
-  });
+  } else {
 
-  nodemon.on('start', function () {
-    console.log(chalk.cyan('Node application has started...\n'));
-  }).on('quit', function () {
-    console.log('App has quit');
-    process.exit();
-  }).on('restart', function (files) {
-    console.log('App restarted due to: ', files);
-  });
-});
+    //console.log(stats);
+      // Done processing
+      nodemon({
+          script: paths.serverPath,
+          ext: 'js json'
+      });
+
+      nodemon.on('start', function () {
+          console.log(chalk.cyan('ServerApplication has started...\n'));
+      }).on('quit', function () {
+          console.log('ServerApplication has quit');
+          process.exit();
+      }).on('restart', function (files) {
+          console.log('ServerApplication restarted due to: ', files);
+      });
+  }
+})
 
 const watching = compilerServer.watch({
   /* watchOptions */

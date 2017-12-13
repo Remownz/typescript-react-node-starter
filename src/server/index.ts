@@ -2,9 +2,7 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as path from 'path';
 
-import { Request, Response } from 'express';
-
-const router = require('./router');
+import router from './router';
 const app = express();
 
 app.set('trust proxy', 1);
@@ -12,7 +10,7 @@ app.set('trust proxy', 1);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(express.static(`${__dirname}/..`));
+app.use(express.static(path.resolve('build')));
 app.use('/', router);
 
 app.listen('8080', () => {

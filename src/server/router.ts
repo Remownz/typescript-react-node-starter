@@ -1,14 +1,14 @@
-import * as Express from 'express';
+import * as express from 'express';
 
 const path = require('path');
-const router = Express.Router();
+const router = express.Router();
 
 router.get('/api', (req, res, next) => {
     res.status(200).json({ great: 'great' });
 });
 
-router.get('*', (req: Express.Request, res: Express.Response, next: Express.NextFunction) => {
-    res.sendFile(path.resolve('public/index.html'));
-});
+// router.get('*', (req: Express.Request, res: Express.Response, next: Express.NextFunction) => {
+//     res.sendFile(path.resolve('build/index.html'));
+// });
 
-module.exports = router;
+export default router;

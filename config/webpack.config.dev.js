@@ -84,13 +84,7 @@ module.exports = {
     // for React Native Web.
     //
     // Add `.ts` and `.tsx` as a resolvable extension.
-    extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx', '.ts', '.tsx'],
-    alias: {
-
-      // Support React Native Web
-      // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
-      'react-native': 'react-native-web',
-    },
+    extensions: ['.js', '.ts', '.tsx'],
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).
       // This often causes confusion because we only process files within src/ with babel.
@@ -110,29 +104,10 @@ module.exports = {
       // First, run the linter.
       // It's important to do this before Babel/TypeScript processes the JS.
       {
-        oneOf: [
-          {
-            test: /\.ts$/,
-            enforce: 'pre',
-            loader: require.resolve('tslint-loader'),
-            options: {/* Loader options go here */}
-          },
-          {
-            test: /\.(js|jsx|mjs)$/,
-            enforce: 'pre',
-            use: [
-              {
-                options: {
-                  formatter: eslintFormatter,
-                  eslintPath: require.resolve('eslint'),
-
-                },
-                loader: require.resolve('eslint-loader'),
-              },
-            ],
-            include: paths.appSrc,
-          },
-        ],
+          test: /\.ts$/,
+          enforce: 'pre',
+          loader: require.resolve('tslint-loader'),
+          options: {/* Loader options go here */}
       },
       {
         // "oneOf" will traverse all following loaders until one will
@@ -155,19 +130,7 @@ module.exports = {
             test: /\.tsx?$/,
             loader: require.resolve('ts-loader')
           },
-          // Process JS with Babel.
-          {
-            test: /\.(js|jsx|mjs)$/,
-            include: paths.appSrc,
-            loader: require.resolve('babel-loader'),
-            options: {
 
-              // This is a feature of `babel-loader` for webpack (not Babel itself).
-              // It enables caching results in ./node_modules/.cache/babel-loader/
-              // directory for faster rebuilds.
-              cacheDirectory: true,
-            },
-          },
           // "postcss" loader applies autoprefixer to our CSS.
           // "css" loader resolves paths in CSS and adds assets as dependencies.
           // "style" loader turns CSS into JS modules that inject <style> tags.
